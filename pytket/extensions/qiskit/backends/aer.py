@@ -237,7 +237,7 @@ class _AerBaseBackend(Backend):
         circuits: Sequence[Circuit],
         n_shots: Union[None, int, Sequence[Optional[int]]] = None,
         valid_check: bool = True,
-        **kwargs: Union[int, float, str, None, Sequence[Optional[int]]],
+        **kwargs: Union[bool, int, float, str, None],
     ) -> List[ResultHandle]:
         circuits = list(circuits)
         n_shots_list = Backend._get_n_shots_as_list(
@@ -283,7 +283,8 @@ class _AerBaseBackend(Backend):
                 seed_simulator=seed,
                 noise_model=self._noise_model,
             )
-            seed += 1
+            if kwargs.get("seed_auto_increase") and seed is not None:
+                seed += 1
             jobid = job.job_id()
             for i, ind in enumerate(indices):
                 handle = ResultHandle(jobid, i)
