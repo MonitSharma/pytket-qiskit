@@ -258,13 +258,12 @@ class _AerBaseBackend(Backend):
             circuits = noisy_circuits
 
         handle_list: List[Optional[ResultHandle]] = [None] * len(circuits)
-        circuit_batches, batch_order = _batch_circuits(
-            circuits, n_shots_list, kwargs.get("seed")
-        )
+        seed = kwargs.get("seed")
+        circuit_batches, batch_order = _batch_circuits(circuits, n_shots_list)
 
         replace_implicit_swaps = self.supports_state or self.supports_unitary
 
-        for (n_shots, seed, batch), indices in zip(circuit_batches, batch_order):
+        for (n_shots, batch), indices in zip(circuit_batches, batch_order):
             qcs = []
             for tkc in batch:
                 qc = tk_to_qiskit(tkc, replace_implicit_swaps)
@@ -284,6 +283,7 @@ class _AerBaseBackend(Backend):
                 seed_simulator=seed,
                 noise_model=self._noise_model,
             )
+            seed += 1
             jobid = job.job_id()
             for i, ind in enumerate(indices):
                 handle = ResultHandle(jobid, i)
