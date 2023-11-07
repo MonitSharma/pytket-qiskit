@@ -175,7 +175,7 @@ class IBMQEmulatorBackend(Backend):
                 options.execution.shots = n_shots
                 options.simulator.noise_model = self._noise_model
                 options.seed_simulator = seed
-                if kwargs.get("seed_auto_increase") and seed is not None:
+                if kwargs.get("seed_auto_increase") and type(seed) is int:
                     seed += 1
                 sampler = Sampler(session=self._session, options=options)
                 job = sampler.run(circuits=qcs)
