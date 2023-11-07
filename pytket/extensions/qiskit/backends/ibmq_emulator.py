@@ -129,7 +129,9 @@ class IBMQEmulatorBackend(Backend):
     ) -> List[ResultHandle]:
         """
         See :py:meth:`pytket.backends.Backend.process_circuits`.
-        Supported kwargs: `seed`, `postprocess`.
+        Supported kwargs: `seed`, `postprocess`, `seed_auto_increase`.
+        seed_auto_increase=True will automatically increase the seed by one for the
+        different batches when more than one circuit is submitted
         """
         circuits = list(circuits)
         n_shots_list = Backend._get_n_shots_as_list(
