@@ -28,7 +28,7 @@ from qiskit.quantum_info import SparsePauliOp, Statevector, Operator  # type: ig
 from qiskit.transpiler import PassManager  # type: ignore
 from qiskit.circuit.library import RYGate, MCMT, XXPlusYYGate, PauliEvolutionGate, UnitaryGate, RealAmplitudes  # type: ignore
 import qiskit.circuit.library.standard_gates as qiskit_gates  # type: ignore
-from qiskit.circuit import Parameter  # type: ignore
+from qiskit.circuit import Parameter
 from qiskit.synthesis import SuzukiTrotter  # type: ignore
 from qiskit_aer import Aer  # type: ignore
 from qiskit.transpiler.passes import BasisTranslator  # type: ignore
